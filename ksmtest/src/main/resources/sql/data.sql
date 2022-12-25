@@ -1,0 +1,27 @@
+/*
+  H2 DB DATA 생성
+  1) BOARD
+  2) COMMENT
+*/
+
+INSERT INTO BOARD
+(
+  SUBJECT, 
+  CONTENT, 
+  CREATED_DATE, 
+  UPDATED_DATE, 
+  DELETED_YN
+) 
+VALUES
+(
+  '개행이 들어간 글', 
+  '1번 테스트글은 
+  개행 테스트 글입니다.
+  
+  아자뵤',
+  NOW(),
+  NOW(),
+  FALSE
+);
+INSERT INTO BOARD(SUBJECT, CONTENT, CREATED_DATE, DELETED_YN) VALUES('제목', '내용', NOW(), FALSE);
+INSERT INTO BOARD(SUBJECT, CONTENT, CREATED_DATE, DELETED_YN) VALUES('제목', '내용', NOW(), FALSE);
