@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>메인 페이지</h3>
+  <div>글 리스트</div>
+ <table>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+      <th>내용</th>
+      <th>생성일</th>
+      <th>수정일</th>
+    </tr>
+    <tr th:each="board : ${boardList}" th:onclick="|location.href='@{/board/detail/}${board.NO}'|">
+      <td th:text="${board.NO}"></td>
+      <td th:text="${board.SUBJECT}"></td>
+      <td th:text="${board.CONTENT}"></td>
+      <td th:text="${#dates.format(board.CREATED_DATE, 'yyyy-MM-dd')}"></td>
+      <td th:text="${board.UPDATED_DATE} ? ${#dates.format(board.UPDATED_DATE, 'yyyy-MM-dd')} : '-'"></td>
+    </tr>
+ </table>
+  <div>
+    <a href="/board/write">글 쓰기</a>
+  </div>
+  
+  <script>
+    console.log('[[${boardList}]]')
+  </script>
+</body>
+</html>
