@@ -32,14 +32,62 @@
   </table>
 
   <h3>댓글</h3>
-  <table>
+  <table id="comment-box">
     <tr>
       <th>내용</th>
       <th>날짜</th>
     </tr>
   </table>
-  <script>
-    console.log('[[${board}]]')
+  <script th:inline="javascript">
+    const board = /*[[${board}]]*/ null
+    const boardNo = board.NO
+
+    getComments()
+
+    // 댓글 가져오기
+    function getComments() {
+      fetch('/board/api/comments/' + boardNo)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error('COMMENT ERROR')
+          }
+          return response.json()
+        })
+        .then((data) => {
+          drawComments(data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    }
+
+    function drawComments(comments) {
+      const commentBox = document.getElementById('comment-box')
+
+      for (const comment of comments) {
+        const newTagTr = document.createElement('tr')
+        const commentElement = document.createElement('td')
+        const dateElement = document.createElement('td')
+        const date = formatDate(comment.CREATED_DATE)
+
+        commentElement.textContent = comment.COMMENT
+        dateElement.textContent = date
+
+        newTagTr.appendChild(commentElement)
+        newTagTr.appendChild(dateElement)
+        commentBox.appendChild(newTagTr)
+      }
+    }
+
+    function formatDate(date) {
+      const newDate = new Date(date)
+
+      const year = newDate.getFullYear()
+      const month = newDate.getMonth() + 1
+      const day = newDate.getDate()
+
+      return year + '-' + month + '-' + day 
+    } 
   </script>
 </body>
 </html>

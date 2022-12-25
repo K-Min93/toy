@@ -13,4 +13,16 @@
     WHERE NO = #{no}
       AND DELETED_YN = FALSE
   </select>
+
+  <select id="selectAllComment" resultType="map">
+    SELECT
+      BOARD_NO,
+      COMMENT,
+      CREATED_DATE,
+      UPDATED_DATE,
+      DELETED_YN
+    FROM COMMENT
+    WHERE BOARD_NO = #{boardNo}
+      AND DELETED_YN = FALSE
+  </select>
 </mapper>
