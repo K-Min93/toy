@@ -40,6 +40,10 @@
       <th>날짜</th>
     </tr>
   </table>
+  <div id="create-comment">
+    <input name="comment" type="text">
+    <button type="button" onclick="sendComment()">작성하기</button>
+  </div>
   <script th:inline="javascript">
     const board = /*[[${board}]]*/ null
     const boardNo = board.NO
@@ -75,6 +79,8 @@
         commentElement.textContent = comment.COMMENT
         dateElement.textContent = date
 
+        newTagTr.classList.add('comment')
+
         newTagTr.appendChild(commentElement)
         newTagTr.appendChild(dateElement)
         commentBox.appendChild(newTagTr)
@@ -89,7 +95,37 @@
       const day = newDate.getDate()
 
       return year + '-' + month + '-' + day 
-    } 
+    }
+
+    function sendComment() {
+      const createComment = document.querySelector('#create-comment')
+      const comment = createComment.querySelector('input[name=comment]')
+      const data = {
+        comment: comment.value
+      }
+
+      fetch('/board/api/do/create-comment/' + boardNo, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(() => {
+        const commentBox = document.querySelector('#comment-box')
+        const comments = commentBox.querySelectorAll('.comment')
+        
+        for (const comment of comments) {
+          comment.remove()
+        }
+        comment.value = ''
+        getComments()
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+        
+    }
   </script>
 </body>
 </html>

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,4 +86,16 @@ public class BoardController {
     return "redirect:/";
   }
   
+  @ResponseBody
+  @PutMapping("/api/do/create-comment/{boardNo}")
+  public void createComment(
+    @PathVariable("boardNo") int boardNo,
+    @RequestBody Map<String, Object> comment
+  ) {
+    System.out.println("break point");
+    System.out.println(comment.get("comment"));
+
+    // TODO : insert 예외 발생 상황 생각해서 처리하기
+    boardService.createComment(boardNo, (String) comment.get("comment"));
+  }
 }

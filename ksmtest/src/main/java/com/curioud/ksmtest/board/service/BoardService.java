@@ -43,4 +43,11 @@ public class BoardService {
     boardMapper.updateBoard(no, subject, content);
   }
 
+  public void createComment(
+    int boardNo,
+    String comment
+  ) {
+    boardMapper.insertComment(boardNo, comment);
+  }
+
 }

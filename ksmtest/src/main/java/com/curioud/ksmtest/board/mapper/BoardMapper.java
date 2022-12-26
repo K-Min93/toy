@@ -27,4 +27,8 @@ public interface BoardMapper {
     @Param("content") String content
   );
 
+  void insertComment(
+    @Param("boardNo") int boardNo,
+    @Param("comment") String comment
+  );
 }

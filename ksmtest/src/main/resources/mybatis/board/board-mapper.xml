@@ -51,4 +51,21 @@
       UPDATED_DATE = NOW()
     WHERE NO = #{no}
   </update>
+
+  <insert id="insertComment">
+    INSERT INTO COMMENT
+    (
+      BOARD_NO,
+      COMMENT,
+      CREATED_DATE,
+      DELETED_YN
+    )
+    VALUES
+    (
+      #{boardNo},
+      #{comment},
+      NOW(),
+      FALSE
+    )
+  </insert>
 </mapper>
