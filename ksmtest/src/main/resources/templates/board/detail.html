@@ -30,7 +30,9 @@
       <td th:text="${board.UPDATED_DATE} ? ${#dates.format(board.UPDATED_DATE, 'yyyy-MM-dd')} : '-'"></td>
     </tr>
   </table>
-
+  <div>
+    <a th:href="@{|/board/modify/${board.NO}|}">수정하기</a>
+  </div>
   <h3>댓글</h3>
   <table id="comment-box">
     <tr>

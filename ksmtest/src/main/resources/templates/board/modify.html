@@ -8,6 +8,17 @@
 </head>
 <body>
   <h3>글 수정</h3>
-  <div></div>
+  <div>
+    <form action="/board/do/modify-board" method="post">
+      <input name="no" type="text" th:value="${board.NO}">
+      <div>
+        제목 : <input name="subject" type="text" th:value="${board.SUBJECT}">
+      </div>
+      <div>
+        내용 : <textarea name="content" cols="30" rows="10" th:text="${board.CONTENT}"></textarea>
+      </div>
+      <input type="submit" value="작성하기">
+    </form>
+  </div>
 </body>
 </html>

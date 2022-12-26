@@ -35,4 +35,12 @@ public class BoardService {
     boardMapper.insertBoard(subject, content);
   }
   
+  public void modifyBoard(
+    int no,
+    String subject,
+    String content
+  ) {
+    boardMapper.updateBoard(no, subject, content);
+  }
+
 }

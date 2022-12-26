@@ -25,7 +25,7 @@ public class BoardController {
   }
 
   @GetMapping("/write")
-  public String boardWritePage() {
+  public String writeBoardPage() {
     return "board/write";
   }
 
@@ -58,4 +58,30 @@ public class BoardController {
 
     return "redirect:/";
   }
+
+  @GetMapping("/modify/{no}")
+  public String modifyBoardPage(
+    @PathVariable("no") int no,
+    Model model
+  ) {
+
+    Map<String, Object> board = boardService.getBoardDetail(no);
+    
+    model.addAttribute("board", board);
+    return "board/modify";
+  }
+
+  @PostMapping("/do/modify-board")
+  public String modifyBoard(
+    @RequestParam("no") int no,
+    @RequestParam("subject") String subject,
+    @RequestParam("content") String content
+  ) {
+
+    // TODO : update 예외 발생 상황 생각해서 처리하기
+    boardService.modifyBoard(no, subject, content);
+
+    return "redirect:/";
+  }
+  
 }

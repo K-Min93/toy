@@ -42,4 +42,13 @@
       FALSE
     )
   </insert>
+
+  <update id="updateBoard">
+    UPDATE BOARD
+    SET
+      SUBJECT = #{subject},
+      CONTENT = #{content},
+      UPDATED_DATE = NOW()
+    WHERE NO = #{no}
+  </update>
 </mapper>

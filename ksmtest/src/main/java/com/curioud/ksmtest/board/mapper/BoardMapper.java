@@ -20,4 +20,11 @@ public interface BoardMapper {
     @Param("subject") String subject,
     @Param("content") String content
   );
+
+  void updateBoard(
+    @Param("no") int no,
+    @Param("subject") String subject,
+    @Param("content") String content
+  );
+
 }
