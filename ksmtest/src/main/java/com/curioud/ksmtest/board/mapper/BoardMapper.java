@@ -31,4 +31,8 @@ public interface BoardMapper {
     @Param("boardNo") int boardNo,
     @Param("comment") String comment
   );
+
+  void deleteBoard(
+    @Param("no") int no
+  );
 }

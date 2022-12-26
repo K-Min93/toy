@@ -33,6 +33,12 @@
   <div>
     <a th:href="@{|/board/modify/${board.NO}|}">수정하기</a>
   </div>
+  <div>
+    <form action="/board/do/delete-board" method="post">
+      <input name="boardNo" type="hidden" th:value="${board.NO}">
+      <input type="submit" value="삭제하기">
+    </form>
+  </div>
   <h3>댓글</h3>
   <table id="comment-box">
     <tr>
@@ -49,11 +55,16 @@
     const boardNo = board.NO
 
     getComments()
+      .catch((error) => {
+        console.error('main error : ' + error)
+      })
 
     // 댓글 가져오기
     function getComments() {
-      fetch('/board/api/comments/' + boardNo)
+      return fetch(
+        '/board/api/comments/' + boardNo)
         .then((response) => {
+          throw Error('COMMENT ERROR')
           if (!response.ok) {
             throw Error('COMMENT ERROR')
           }
@@ -63,7 +74,8 @@
           drawComments(data)
         })
         .catch((error) => {
-          console.error(error)
+          console.error('getComments Error : ' + error)
+          throw error
         })
     }
 
@@ -81,9 +93,9 @@
 
         newTagTr.classList.add('comment')
 
-        newTagTr.appendChild(commentElement)
-        newTagTr.appendChild(dateElement)
         commentBox.appendChild(newTagTr)
+        newTagTr.appendChild(dateElement)
+        newTagTr.appendChild(commentElement)
       }
     }
 
@@ -99,7 +111,7 @@
 
     function sendComment() {
       const createComment = document.querySelector('#create-comment')
-      const comment = createComment.querySelector('input[name=comment]')
+      const comment = createComment.querySelector('input[name="comment"]')
       const data = {
         comment: comment.value
       }
@@ -111,20 +123,18 @@
         },
         body: JSON.stringify(data),
       })
-      .then(() => {
-        const commentBox = document.querySelector('#comment-box')
-        const comments = commentBox.querySelectorAll('.comment')
-        
-        for (const comment of comments) {
-          comment.remove()
-        }
-        comment.value = ''
-        getComments()
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-        
+        .then(() => {
+          const comments = document.querySelectorAll('#comment-box > .comment')
+          
+          for (const comment of comments) {
+            comment.remove()
+          }
+          comment.value = ''
+          return getComments()
+        })
+        .catch((error) => {
+          console.error('sendComment Error : ' + error)
+        })
     }
   </script>
 </body>

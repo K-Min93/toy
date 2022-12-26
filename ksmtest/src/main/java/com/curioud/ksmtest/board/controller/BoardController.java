@@ -36,8 +36,10 @@ public class BoardController {
     @PathVariable("no") int no,
     Model model
   ) {
+
     Map<String, Object> board = boardService.getBoardDetail(no);
     model.addAttribute("board", board);
+
     return "board/detail";
   }
 
@@ -92,10 +94,16 @@ public class BoardController {
     @PathVariable("boardNo") int boardNo,
     @RequestBody Map<String, Object> comment
   ) {
-    System.out.println("break point");
-    System.out.println(comment.get("comment"));
-
     // TODO : insert 예외 발생 상황 생각해서 처리하기
     boardService.createComment(boardNo, (String) comment.get("comment"));
+  }
+
+  @PostMapping("/do/delete-board")
+  public String deleteBoard(
+    @RequestParam("boardNo") int no
+  ) {
+    // TODO : delete 예외 발생 상황 생각해서 처리하기
+    boardService.deleteBoard(no);
+    return "redirect:/";
   }
 }

@@ -50,4 +50,9 @@ public class BoardService {
     boardMapper.insertComment(boardNo, comment);
   }
 
+  public void deleteBoard(
+    int no
+  ) {
+    boardMapper.deleteBoard(no);
+  }
 }

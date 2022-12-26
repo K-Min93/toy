@@ -68,4 +68,11 @@
       FALSE
     )
   </insert>
+
+  <update id="deleteBoard">
+    UPDATE BOARD
+    SET
+      DELETED_YN = TRUE
+    WHERE NO = #{no}
+  </update>
 </mapper>
