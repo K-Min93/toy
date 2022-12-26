@@ -35,7 +35,7 @@ public class BoardController {
   public String boardDetailPage(
     @PathVariable("no") int no,
     Model model
-  ) {
+  ) throws Exception {
 
     Map<String, Object> board = boardService.getBoardDetail(no);
     model.addAttribute("board", board);

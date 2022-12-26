@@ -18,8 +18,14 @@ public class BoardService {
 
   public Map<String, Object> getBoardDetail(
     int no
-  ) {
-    return boardMapper.selectOneBoardDetail(no);
+  ) throws Exception {
+    Map<String, Object> board = boardMapper.selectOneBoardDetail(no);
+    
+    if (board == null) {
+      throw new Exception("데이터 없음");
+    }
+
+    return board;
   }
 
   public List<Map<String, Object>> getComments(
