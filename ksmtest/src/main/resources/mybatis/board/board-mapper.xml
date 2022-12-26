@@ -25,4 +25,21 @@
     WHERE BOARD_NO = #{boardNo}
       AND DELETED_YN = FALSE
   </select>
+
+  <insert id="insertBoard">
+    INSERT INTO BOARD
+    (
+      SUBJECT,
+      CONTENT,
+      CREATED_DATE,
+      DELETED_YN
+    )
+    VALUES
+    (
+      #{subject},
+      #{content},
+      NOW(),
+      FALSE
+    )
+  </insert>
 </mapper>

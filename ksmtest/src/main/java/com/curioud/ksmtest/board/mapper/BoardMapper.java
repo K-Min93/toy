@@ -15,4 +15,9 @@ public interface BoardMapper {
   List<Map<String, Object>> selectAllComment(
     @Param("boardNo") int boardNo
   );
+
+  void insertBoard(
+    @Param("subject") String subject,
+    @Param("content") String content
+  );
 }

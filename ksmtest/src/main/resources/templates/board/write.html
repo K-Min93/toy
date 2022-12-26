@@ -8,6 +8,16 @@
 </head>
 <body>
   <h3>글 쓰기</h3>
-  <div></div>
+  <div>
+    <form action="/board/do/crete-board" method="post">
+      <div>
+        제목 : <input name="subject" type="text">
+      </div>
+      <div>
+        내용 : <textarea name="content" cols="30" rows="10"></textarea>
+      </div>
+      <input type="submit" value="작성하기">
+    </form>
+  </div>
 </body>
 </html>

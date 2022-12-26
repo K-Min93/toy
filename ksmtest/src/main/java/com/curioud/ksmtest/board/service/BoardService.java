@@ -27,5 +27,12 @@ public class BoardService {
   ) {
     return boardMapper.selectAllComment(boardNo);
   }
+
+  public void createBoard(
+    String subject,
+    String content
+  ) {
+    boardMapper.insertBoard(subject, content);
+  }
   
 }

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.curioud.ksmtest.board.service.BoardService;
@@ -43,5 +45,17 @@ public class BoardController {
     @PathVariable("no") int boardNo
   ) {
     return boardService.getComments(boardNo);
+  }
+
+  @PostMapping("/do/crete-board")
+  public String createBoard(
+    @RequestParam("subject") String subject,
+    @RequestParam("content") String content
+  ) {
+
+    // TODO : insert 예외 발생 상황 생각해서 처리하기
+    boardService.createBoard(subject, content);
+
+    return "redirect:/";
   }
 }
