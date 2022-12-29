@@ -61,10 +61,8 @@
 
     // 댓글 가져오기
     function getComments() {
-      return fetch(
-        '/board/api/comments/' + boardNo)
+      return fetch('/board/api/comments/' + boardNo)
         .then((response) => {
-          throw Error('COMMENT ERROR')
           if (!response.ok) {
             throw Error('COMMENT ERROR')
           }
@@ -93,9 +91,9 @@
 
         newTagTr.classList.add('comment')
 
-        commentBox.appendChild(newTagTr)
-        newTagTr.appendChild(dateElement)
         newTagTr.appendChild(commentElement)
+        newTagTr.appendChild(dateElement)
+        commentBox.appendChild(newTagTr)
       }
     }
 
