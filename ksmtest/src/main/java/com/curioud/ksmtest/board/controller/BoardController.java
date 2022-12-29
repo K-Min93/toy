@@ -67,7 +67,7 @@ public class BoardController {
   public String modifyBoardPage(
     @PathVariable("no") int no,
     Model model
-  ) {
+  ) throws Exception {
 
     Map<String, Object> board = boardService.getBoardDetail(no);
     

@@ -22,7 +22,7 @@ public class BoardService {
     Map<String, Object> board = boardMapper.selectOneBoardDetail(no);
     
     if (board == null) {
-      throw new Exception("데이터 없음");
+      throw new NullPointerException("데이터 없음");
     }
 
     return board;
