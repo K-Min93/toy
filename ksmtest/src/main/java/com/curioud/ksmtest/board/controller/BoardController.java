@@ -1,9 +1,12 @@
 package com.curioud.ksmtest.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -110,11 +113,27 @@ public class BoardController {
 
   @ResponseBody
   @PutMapping("/api/do/create-thumnail/{boardNo}")
-  public void createThumnail(
+  public ResponseEntity<Object> createThumnail(
     @PathVariable("boardNo") int boardNo,
     @RequestParam("file") MultipartFile file
-  ) throws IOException {
+  ) {
     System.out.print("========== break point ==========");
-    boardService.createThumnail(boardNo, file);
+    Map<String, Object> body = new HashMap<>();
+
+    try {
+
+      String filename = boardService.createThumnail(boardNo, file);
+
+      if (filename == null) {
+        throw new Exception();
+      }
+
+      body.put("filename", filename);
+      
+      return new ResponseEntity<>(body, HttpStatus.OK);
+    } catch (Exception e) {
+      // TODO: handle exception
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
   }
 }

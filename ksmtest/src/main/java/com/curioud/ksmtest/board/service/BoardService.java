@@ -66,7 +66,7 @@ public class BoardService {
     boardMapper.deleteBoard(boardNo);
   }
 
-  public void createThumnail(
+  public String createThumnail(
     int boardNo,
     MultipartFile file
   ) throws IOException {
@@ -75,8 +75,8 @@ public class BoardService {
         수정페이지에서
         1.파일 검사
         (
-        용량 - (1KB = 1024byte, 1MB = 1024kb),
-        확장자 - jpg, jpge, png. bmp,
+          용량 - (1KB = 1024byte, 1MB = 1024kb),
+          확장자 - jpg, jpge, png. bmp,
         )
         2.파일 업로드, 로컬경로설정(상대 경로)
         3. 파일에 대한 데이터 저장
@@ -93,16 +93,17 @@ public class BoardService {
         String upload = uploadFileLocation + filename;
 
         file.transferTo(new File(upload));
-
+        
         boardMapper.updateThumnail(boardNo, filename);
-      
+        
+        return filename;
       } else {
         // 용량 및 확장자 에러
-
+        return null;
       }
     } else {
       // 첨부파일 없음
-
+      return null;
     }
   }
 }
