@@ -24,7 +24,7 @@
       <input id="thumnail" name="file" type="file" onchange="previewImage()">
       <p>
         <div>이미지 미리보기 영역</div>
-        <img id="image-preview" src="" alt="">
+        <img id="image-preview" th:src="@{|/img/${board.THUMNAIL}|}" alt="">
       </p>
       <button onclick="sendFile()">이미지 등록</button>
     </div>
@@ -32,10 +32,10 @@
 
   <script th:inline="javascript">
     const boardNo = /*[[${board.NO}]]*/ 0
-    
+    const file = document.querySelector('#thumnail')
+    const imageBox = document.querySelector('#image-preview')
+
     function previewImage() {
-      const file = document.querySelector('#thumnail')
-      const imageBox = document.querySelector('#image-preview')
       const reader = new FileReader();
       reader.onload = function (e) {
         imageBox.src = e.target.result;
@@ -47,7 +47,11 @@
       const formData = new FormData()
       const file = document.querySelector('#thumnail')
       
-      console.log(file.files[0])
+      if (!file.files[0]) {
+        alert('파일을 첨부해주세요')
+        return
+      }
+
       formData.append('file', file.files[0])
 
       fetch('/board/api/do/create-thumnail/' + boardNo, {
@@ -59,7 +63,6 @@
           return response.json()
         })
         .then((data) => {
-          console.log(data.filename)
           
         })
         .catch((error) => {
