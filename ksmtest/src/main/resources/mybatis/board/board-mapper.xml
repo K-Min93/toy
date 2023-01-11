@@ -6,6 +6,7 @@
       NO,
       SUBJECT,
       CONTENT,
+      THUMNAIL,
       CREATED_DATE,
       UPDATED_DATE,
       DELETED_YN
