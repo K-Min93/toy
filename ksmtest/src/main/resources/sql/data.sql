@@ -9,7 +9,8 @@ INSERT INTO BOARD
 (
   SUBJECT, 
   CONTENT, 
-  CREATED_DATE, 
+  THUMNAIL,
+  CREATED_DATE,
   UPDATED_DATE, 
   DELETED_YN
 ) 
@@ -20,6 +21,7 @@ VALUES
   개행 테스트 글입니다.
   
   아자뵤',
+  '955329324.jpeg',
   NOW(),
   NOW(),
   FALSE
