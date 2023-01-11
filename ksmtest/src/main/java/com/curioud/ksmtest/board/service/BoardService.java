@@ -16,8 +16,6 @@ public class BoardService {
   
   BoardMapper boardMapper;
 
-  FileUtil fileUtil;
-
   BoardService(BoardMapper boardMapper) {
     this.boardMapper = boardMapper;
   }
@@ -83,9 +81,11 @@ public class BoardService {
         2.파일 업로드, 로컬경로설정(상대 경로)
         3. 파일에 대한 데이터 저장
       */
+      FileUtil fileUtil = new FileUtil();
+
+      long fileSize = file.getSize();
       String originalFilename = file.getOriginalFilename();
       String extension = fileUtil.getExtension(originalFilename);
-      long fileSize = file.getSize();
 
       if (fileUtil.validateFileSize(fileSize) && fileUtil.validateFileExtension(extension)) {
         String filename = fileUtil.makeNewFilename(extension);
@@ -102,7 +102,7 @@ public class BoardService {
       }
     } else {
       // 첨부파일 없음
-      
+
     }
   }
 }
