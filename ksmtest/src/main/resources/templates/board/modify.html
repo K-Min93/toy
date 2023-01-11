@@ -17,8 +17,44 @@
       <div>
         내용 : <textarea name="content" cols="30" rows="10" th:text="${board.CONTENT}"></textarea>
       </div>
-      <input type="submit" value="작성하기">
+      <input type="submit" value="수정하기">
     </form>
+    <br>
+    <div>
+      <input id="thumnail" name="file" type="file">
+      <p>
+        <div>이미지 미리보기 영역</div>
+        <img id="image-preview" src="" alt="">
+      </p>
+      <button onclick="sendFile()">이미지 등록</button>
+    </div>
   </div>
+
+  <script th:inline="javascript">
+    const boardNo = /*[[${board.NO}]]*/ 0
+    
+    function sendFile() {
+      const formData = new FormData()
+      const file = document.querySelector('#thumnail')
+      
+      console.log(file.files[0])
+      formData.append('file', file.files[0])
+
+      fetch('/board/api/do/create-thumnail/' + boardNo, {
+        method: 'PUT',
+        body: formData,
+      })
+        .then(() => {
+          // TODO : 파일첨부 성공시 구현 필요
+        })
+        .then(() => {
+
+        })
+        .catch((error) => {
+          console.error('파일 업로드 실패')
+        })
+      
+    }
+  </script>
 </body>
 </html>

@@ -33,6 +33,11 @@ public interface BoardMapper {
   );
 
   void deleteBoard(
-    @Param("no") int no
+    @Param("boardNo") int boardNo
+  );
+
+  void updateThumnail(
+    @Param("boardNo") int boardNo,
+    @Param("fileName") String fileName
   );
 }

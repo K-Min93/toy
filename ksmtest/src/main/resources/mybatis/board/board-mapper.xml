@@ -73,6 +73,13 @@
     UPDATE BOARD
     SET
       DELETED_YN = TRUE
-    WHERE NO = #{no}
+    WHERE NO = #{boardNo}
+  </update>
+
+  <update id="updateThumnail">
+    UPDATE BOARD
+    SET
+      THUMNAIL = #{fileName}
+    WHERE NO = #{boardNo}
   </update>
 </mapper>

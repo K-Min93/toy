@@ -22,6 +22,12 @@
       <td style="white-space: pre;" th:text="${board.CONTENT}"></td>
     </tr>
     <tr>
+      <th>썸네일</th>
+      <td>
+        <img src="" alt="">
+      </td>
+    </tr>
+    <tr>
       <th>작성일</th>
       <td th:text="${#dates.format(board.CREATED_DATE, 'yyyy-MM-dd')}"></td>
     </tr>
@@ -33,6 +39,7 @@
   <div>
     <a th:href="@{|/board/modify/${board.NO}|}">수정하기</a>
   </div>
+  <br>
   <div>
     <form action="/board/do/delete-board" method="post">
       <input name="boardNo" type="hidden" th:value="${board.NO}">
@@ -50,9 +57,9 @@
     <input name="comment" type="text">
     <button type="button" onclick="sendComment()">작성하기</button>
   </div>
+
   <script th:inline="javascript">
-    const board = /*[[${board}]]*/ null
-    const boardNo = board.NO
+    const boardNo = /*[[${board.NO}]]*/ null
 
     getComments()
       .catch((error) => {
