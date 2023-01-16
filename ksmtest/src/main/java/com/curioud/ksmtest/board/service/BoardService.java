@@ -72,7 +72,6 @@ public class BoardService {
   ) throws IOException {
     if (!file.isEmpty()) {
       /* TODO
-        수정페이지에서
         1.파일 검사
         (
           용량 - (1KB = 1024byte, 1MB = 1024kb),
@@ -82,13 +81,13 @@ public class BoardService {
         3. 파일에 대한 데이터 저장
       */
       FileUtil fileUtil = new FileUtil();
-
+      
       long fileSize = file.getSize();
-      String originalFilename = file.getOriginalFilename();
-      String extension = fileUtil.getExtension(originalFilename);
+      String mimeType = fileUtil.getMimeType(file);
 
-      if (fileUtil.validateFileSize(fileSize) && fileUtil.validateFileExtension(extension)) {
-        String filename = fileUtil.makeNewFilename(extension);
+      if (fileUtil.isFileSize(fileSize) && fileUtil.isFileMimeType(mimeType)) {
+        String extension = fileUtil.getExtension(mimeType);
+        String filename = fileUtil.makeNewFilename() + "." + extension;
         String uploadFileLocation = "D:\\toy\\ksmtest\\src\\main\\resources\\static\\img\\";
         String upload = uploadFileLocation + filename;
 
