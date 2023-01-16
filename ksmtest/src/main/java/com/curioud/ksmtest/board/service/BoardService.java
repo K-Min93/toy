@@ -1,14 +1,15 @@
 package com.curioud.ksmtest.board.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.curioud.ksmtest.board.mapper.BoardMapper;
+import com.curioud.ksmtest.util.DateUtil;
 import com.curioud.ksmtest.util.FileUtil;
 
 @Service
@@ -19,6 +20,12 @@ public class BoardService {
   BoardService(BoardMapper boardMapper) {
     this.boardMapper = boardMapper;
   }
+
+  // @Autowired
+  // FileUtil fileUtil = new FileUtil();
+
+  // @Autowired
+  // DateUtil dateUtil = new DateUtil();
 
   public Map<String, Object> getBoardDetail(
     int no
@@ -80,22 +87,29 @@ public class BoardService {
         2.파일 업로드, 로컬경로설정(상대 경로)
         3. 파일에 대한 데이터 저장
       */
+        
       FileUtil fileUtil = new FileUtil();
+      DateUtil dateUtil = new DateUtil();
       
       long fileSize = file.getSize();
       String mimeType = fileUtil.getMimeType(file);
 
       if (fileUtil.isFileSize(fileSize) && fileUtil.isFileMimeType(mimeType)) {
         String extension = fileUtil.getExtension(mimeType);
-        String filename = fileUtil.makeNewFilename() + "." + extension;
-        String uploadFileLocation = "D:\\toy\\ksmtest\\src\\main\\resources\\static\\img\\";
-        String upload = uploadFileLocation + filename;
+        String newFilename = fileUtil.makeNewFilename() + "." + extension;
+        String date = dateUtil.getLocalDate();
 
-        file.transferTo(new File(upload));
+        dateUtil.getZoneTime();
+        // img폴더 아래 날짜별로 업로드파일 구분 (디렉토리 생성)
+        if (fileUtil.isDirectoryCheck(date)) {
+          fileUtil.makeDirectory(date);
+        }
+
+        fileUtil.uploadFile(file, date, newFilename);
+      
+        boardMapper.updateThumnail(boardNo, newFilename);
         
-        boardMapper.updateThumnail(boardNo, filename);
-        
-        return filename;
+        return newFilename;
       } else {
         // 용량 및 확장자 에러
         return null;

@@ -67,6 +67,8 @@
         })
         .catch((error) => {
           console.error('파일 업로드 실패')
+          alert('파일 업로드에 실패했습니다.')
+          location.href = '/board/detail/' + boardNo
         })
       
     }
