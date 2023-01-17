@@ -59,11 +59,11 @@
         body: formData,
       })
         .then((response) => {
-          // TODO : 파일첨부 성공시 구현 필요
           return response.json()
         })
         .then((data) => {
-          
+          alert('파일 업로드에 성공했습니다.')
+          location.href = '/board/detail/' + boardNo
         })
         .catch((error) => {
           console.error('파일 업로드 실패')

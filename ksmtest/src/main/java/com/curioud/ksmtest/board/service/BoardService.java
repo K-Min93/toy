@@ -98,7 +98,7 @@ public class BoardService {
         }
 
         fileUtil.uploadFile(file, date, newFilename);
-      
+        newFilename = date + "/" + newFilename;
         boardMapper.updateThumnail(boardNo, newFilename);
         
         return newFilename;
