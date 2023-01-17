@@ -4,16 +4,16 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtil {
-  public String getLocalDate() {
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
-    LocalDate localTime = LocalDate.now();
-    String date = localTime.format(format);
+  public String getZoneTime() {
+    ZonedDateTime zone = ZonedDateTime.now();
+    String date = zone.toString();
     return date;
   }
 
-  public void getZoneTime() {
-    ZonedDateTime zone = ZonedDateTime.now();
-
-    System.out.println(zone);
+  public String getZoneTimeDateFormat(String date) {
+    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd");
+    ZonedDateTime zone = ZonedDateTime.parse(date);
+    String dateFormat = zone.format(format);
+    return dateFormat;
   }
 }
